@@ -14,7 +14,7 @@ import Recipe from 'cookscript';
 
 In the browser:
 ```js
-import Recipe from '';
+import Recipe from 'https://unpkg.com/cookscript/dist/index.js';
 ```
 
 ## Usage
