@@ -50,7 +50,7 @@ export default class Recipe {
     constructor(input: string) {
         this.#string = input;
 
-        let lines = this.#string.split(/\r?\n|\r|\n/g).filter(l => l !== '');
+        let lines = this.#string.split(/\r?\n|\r|\n/g).filter(l => l !== '').map(l => l.trim());
         const titleIndex = lines.findIndex(line => /^\>.+/.test(line));
         this.#title = lines[titleIndex].replace(/\>/, '');
 
@@ -106,7 +106,10 @@ export default class Recipe {
     
         while (rawIngredients.length > 0) {
             const rawIngredient = rawIngredients.shift()!;
-            const existingIngredientIndex = this.#ingredients.findIndex(i => i.name === rawIngredient.name && (this.#sections.length > 0 ? i.section === rawIngredient.section : true));
+            const existingIngredientIndex = this.#ingredients.findIndex(i => {
+                const [name] = i.name.match(/^[^\,]+/)!;
+                return name === rawIngredient.name && (this.#sections.length > 0 ? i.section === rawIngredient.section : true);
+            });
             if (existingIngredientIndex === -1) {
                 const newIngredient: Ingredient = {
                     name: `${rawIngredient.name}${rawIngredient.hasOwnProperty('preparation') ? `, ${rawIngredient.preparation}` : ''}`,

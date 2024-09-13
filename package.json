@@ -1,6 +1,6 @@
 {
   "name": "cookscript",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Recipe parser written in TypeScript",
   "type": "module",
   "exports": {
